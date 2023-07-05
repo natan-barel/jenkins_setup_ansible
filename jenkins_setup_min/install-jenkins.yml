@@ -20,7 +20,7 @@
     - name: Install jenkins
       yum:
         name: jenkins
-        state: latest
+        state: present
 
     - name: daemon-reload to pick up config changes
       ansible.builtin.systemd:
