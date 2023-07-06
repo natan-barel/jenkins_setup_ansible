@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   become: true
+  become_user: root
   tasks:
     - name: Download Long Term Jenkins release
       get_url:
@@ -12,15 +13,10 @@
         state: present
         key: https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 
-    # - name: Install java
-    #   yum:
-    #     name: java-11-openjdk-devel
-    #     state: present
-
     - name: Install jenkins
       yum:
         name: jenkins
-        state: present
+        state: latest
 
     - name: daemon-reload to pick up config changes
       ansible.builtin.systemd:
@@ -30,4 +26,3 @@
       ansible.builtin.systemd:
         name: jenkins
         state: started
-        enabled: true
